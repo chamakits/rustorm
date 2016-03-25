@@ -453,7 +453,7 @@ pub trait Database {
             Some(ref field) => {
                 self.build_field(&mut w, query, field);
             }
-            None => println!("Warning: No from in this query"),
+            None => debug!("Warning: No from in this query"),
         }
         if !query.joins.is_empty() {
             for join in &query.joins {

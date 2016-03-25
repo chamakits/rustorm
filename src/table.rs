@@ -72,7 +72,7 @@ impl Column {
     ///some column names may be a rust reserve keyword, so have to correct them
     pub fn corrected_name(&self) -> String {
         if Self::is_keyword(&self.name) {
-            println!("Warning: {} is rust reserved keyword", self.name);
+            debug!("Warning: {} is rust reserved keyword", self.name);
             return format!("{}_", self.name);
         }
         self.name.to_owned()
@@ -561,13 +561,13 @@ impl Table {
     pub fn get_all_applicable_reference<'a>(&'a self, all_tables: &'a [Table]) -> Vec<RefTable> {
         let mut applicable_ref = vec![];
         if self.is_linker_table() {
-            //println!("Skipping reference listing for table {}, Linker table should not contain objects", self);
+            //debug!("Skipping reference listing for table {}, Linker table should not contain objects", self);
             return vec![];
         }
         let all_ref = self.get_all_referenced_table(all_tables);
         for ref_table in all_ref {
             if self.is_extension_of(ref_table.table, all_tables) {
-                //println!("skipping master table {} since {} is just an extension to it ",ref_table.table, self);
+                //debug!("skipping master table {} since {} is just an extension to it ",ref_table.table, self);
             } else {
                 applicable_ref.push(ref_table)
             }
@@ -690,7 +690,7 @@ impl Table {
             let rt_fk = rt.foreign_columns();
             let rt_uc = rt.uninherited_columns();
             if rt_pk.len() == 2 && rt_fk.len() == 2 && rt_uc.len() == 2 {
-                //println!("{} is a candidate linker table for {}", rt.name, self.name);
+                //debug!("{} is a candidate linker table for {}", rt.name, self.name);
                 let ref_tables = rt.referred_tables(tables);
                 let (_, t0) = ref_tables[0];
                 let (_, t1) = ref_tables[1];
@@ -758,7 +758,7 @@ impl Table {
         let fk = self.foreign_columns();
         for f in fk {
             if pk.contains(&f) {
-                //println!("{}.{} is both primary and foreign", self.name, f.name);
+                //debug!("{}.{} is both primary and foreign", self.name, f.name);
                 both.push(f);
             }
         }

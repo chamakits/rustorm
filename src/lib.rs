@@ -67,7 +67,7 @@
 //!             .from_table("bazaar.product")
 //!             .filter("name", Equality::EQ, &"GTX660 Ti videocard")
 //!             .collect_one(db.as_ref()).unwrap();
-//!     println!("{}  {}  {:?}", prod.product_id, prod.name.unwrap(), prod.description);
+//!     debug!("{}  {}  {:?}", prod.product_id, prod.name.unwrap(), prod.description);
 //! }
 //!
 //!
@@ -75,7 +75,8 @@
 //!
 //!
 //!
-
+#[macro_use]
+extern crate log;
 extern crate rustc_serialize;
 extern crate postgres;
 #[cfg(feature = "sqlite")]

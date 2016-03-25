@@ -107,7 +107,7 @@ impl DbConfig {
                 }
             }
             Err(e) => {
-                println!("Error parsing url \"{}\": {}", url, e);
+                debug!("Error parsing url \"{}\": {}", url, e);
                 None
             }
         }
@@ -197,7 +197,7 @@ fn test_config_sqlite_url_with_port() {
         database: "/bazaar_v8.db/".to_owned(),
         ssl: false,
     };
-    println!("{:?}", parsed_config);
+    debug!("{:?}", parsed_config);
     assert_eq!(parsed_config, expected_config);
 }
 
@@ -215,7 +215,7 @@ fn test_config_sqlite_url_with_path() {
         database: "/home/some/path/file.db".to_owned(),
         ssl: false,
     };
-    println!("{:?}", parsed_config);
+    debug!("{:?}", parsed_config);
     assert_eq!(parsed_config, expected_config);
 }
 
@@ -233,6 +233,6 @@ fn sqlite_in_memory() {
         database: ":memory:".to_owned(),
         ssl: false,
     };
-    println!("{:?}", parsed_config);
+    debug!("{:?}", parsed_config);
     assert_eq!(parsed_config, expected_config);
 }
